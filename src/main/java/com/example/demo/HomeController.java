@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.PUT;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -18,10 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-// @Controller
 public class HomeController {
 
 	@Autowired
@@ -31,8 +28,8 @@ public class HomeController {
 	@Autowired
 	Employee2 e2;
 
-	@RequestMapping("/allRecords")
-	@Produces("application/xml")
+	// @Produces("application/xml")
+	@RequestMapping(method = RequestMethod.GET, value = "/api/employee/allRecords")
 	public List<Student> allRecords() {
 		System.out.println("homeCOntroller >>> " + e.hashCode());
 		e2.print();
@@ -43,8 +40,7 @@ public class HomeController {
 		return l;
 	}
 
-	@RequestMapping("/StudentById")
-	@Produces(MediaType.APPLICATION_XML)
+	@RequestMapping(method = RequestMethod.GET, value = "/api/employee/StudentById")
 	public Student getStudentById(@QueryParam("id") int id) {
 		List<Student> l = new ArrayList<>();
 		l.add(new Student("saurabh", 2, "don bosco"));
@@ -60,13 +56,12 @@ public class HomeController {
 				s.setSchool(ii.getSchool());
 			}
 		}
-
 		return s;
 	}
-	
+
 	@Produces(MediaType.APPLICATION_JSON)
-	@RequestMapping("/updateData/{id}")
-	ResponseEntity<Student> updateStudent(@PathVariable int id){
+	@RequestMapping(method = RequestMethod.PUT, value = "/api/employee/updateData/{id}")
+	ResponseEntity<Student> updateStudent(@PathVariable int id) {
 		List<Student> l = new ArrayList<>();
 		l.add(new Student("saurabh", 2, "don bosco"));
 		l.add(new Student("prakash", 4, "st joesph"));
@@ -81,35 +76,28 @@ public class HomeController {
 			}
 		}
 
-		ResponseEntity<Student> ss=new ResponseEntity<>(s,HttpStatus.FOUND);
+		ResponseEntity<Student> ss = new ResponseEntity<>(s, HttpStatus.FOUND);
 		return ss;
-
-
 	}
-	/*{
-	    "name": "saurabh",
-	    "id": 2,
-	    "school": "don bosco"
-	}*/
-	
-	
-	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	@RequestMapping("/updateStudentWithBody")
-	ResponseEntity<Student> updateStudentWithBody(@RequestBody Student ss){
-		
-		Student s=new Student();
+	/*
+	 * { "name": "saurabh", "id": 2, "school": "don bosco" }
+	 */
+
+	// @PUT
+	// @Produces(MediaType.APPLICATION_JSON)
+	// @Consumes(MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.PUT, value = "/api/employee/updateStudentWithBody", consumes = MediaType.APPLICATION_JSON)
+	ResponseEntity<Student> updateStudentWithBody(@RequestBody Student ss) {
+		Student s = new Student();
 		s.setName(ss.getName());
 		s.setId(555);
 		s.setSchool(ss.getSchool());
-
-		ResponseEntity<Student> sss=new ResponseEntity<>(s,HttpStatus.FOUND);
+		ResponseEntity<Student> sss = new ResponseEntity<>(s, HttpStatus.FOUND);
 		return sss;
-
-
 	}
 
-
-	
+	@RequestMapping(method = RequestMethod.GET, value = "/api/employee/javainuse")
+	public String sayHello() {
+		return "Swagger Hello World";
+	}
 }

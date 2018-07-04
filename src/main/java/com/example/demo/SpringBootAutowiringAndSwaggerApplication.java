@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootAutowiringExampleApplication {
+public class SpringBootAutowiringAndSwaggerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootAutowiringExampleApplication.class, args);
+		SpringApplication.run(SpringBootAutowiringAndSwaggerApplication.class, args);
 	}
 }

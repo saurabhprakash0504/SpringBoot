@@ -28,6 +28,10 @@ public class HomeController {
 	@Autowired
 	Employee2 e2;
 
+	/*
+	 * { "name": "saurabh", "id": 2, "school": "don bosco" }
+	 */
+	
 	// @Produces("application/xml")
 	@RequestMapping(method = RequestMethod.GET, value = "/api/employee/allRecords")
 	public List<Student> allRecords() {
@@ -79,9 +83,7 @@ public class HomeController {
 		ResponseEntity<Student> ss = new ResponseEntity<>(s, HttpStatus.FOUND);
 		return ss;
 	}
-	/*
-	 * { "name": "saurabh", "id": 2, "school": "don bosco" }
-	 */
+	
 
 	// @PUT
 	// @Produces(MediaType.APPLICATION_JSON)
